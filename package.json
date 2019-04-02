@@ -1,0 +1,24 @@
+{
+  "name": "nodepractice",
+  "version": "1.0.0",
+  "description": "Some crap to ignore",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "keywords": [
+    "Nonsense",
+    "poopy",
+    "pants"
+  ],
+  "author": "Bob Sagat",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  }
+}
