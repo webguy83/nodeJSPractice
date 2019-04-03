@@ -42,3 +42,48 @@ button:hover {
     color:var(--primary);
     border: 1px solid var(--primary);
 }
+
+.grid {
+    max-width: 20rem;
+    margin: 0 auto;
+}
+
+.card__image > img {
+    width: 100%;
+    display: block;
+}
+
+.card__header {
+    text-align: center;
+}
+
+.card__content {
+    text-align: center;
+    margin: 0 1rem 1rem;
+}
+
+.product-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    box-shadow: 0px 0px 9px -1px rgba(0, 0, 0, 0.51);
+    border-radius: 10px;
+    padding: 0.7rem;
+}
+
+.product__title {
+    font-size: 1.5rem;
+    text-transform: uppercase;
+}
+
+.product__price {
+    font-size: 2.4rem;
+}
+.product__description {
+    font-size: .9rem;
+}
+
+.btn {
+    font-size: 1.1rem;
+}
