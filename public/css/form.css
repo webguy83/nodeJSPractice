@@ -1,0 +1,27 @@
+.product-form {
+    width: 20rem;
+    max-width: 90%;
+    margin: auto;
+}
+
+.form-control {
+    font-size: 1.1rem;
+    margin: 1rem 0;
+}
+
+.form-control > label,
+.form-control > input {
+    display: block;
+    width: 90%;
+    color: var(--primary); 
+}
+
+.form-control > input {
+    background-color: var(--secondary);
+}
+
+.form-control > input {
+    font:inherit;
+    border-radius: .2rem;
+    border: 1px solid var(--primary);
+}

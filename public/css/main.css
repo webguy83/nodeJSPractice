@@ -52,3 +52,24 @@ body {
 main {
     padding: 1rem;
 }
+
+button {
+    background-color: var(--primary);
+    border-radius: .2rem;
+    color: white;
+    border: 1px solid var(--primary);
+    cursor: pointer;
+    padding:.4rem;
+    transition: all .3s;
+}
+
+button:active,
+button:hover {
+    background-color: var(--secondary);
+    color:var(--primary);
+    border: 1px solid var(--primary);
+}
+
+.errorMsg {
+    font-size: 1.4rem;
+}

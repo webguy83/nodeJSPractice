@@ -24,7 +24,8 @@ app.use(shopRoutes);
 app.use('/animals', animalRoutes);
 /* delete at some point */
 app.use((req, res, next) => {
-    res.status(404).sendFile(path.join(__dirname, "views", "error404.html"));
+    res.render('error', {docTitle: "Error and can't be found!"})
+    // res.status(404).sendFile(path.join(__dirname, "views", "error404.html"));
 })
 
 app.listen(3000);
