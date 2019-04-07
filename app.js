@@ -4,9 +4,13 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const adminData = require('./routes/admin');
+const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 
+//controllers
+const errorController = require('./controllers/error');
+
+// mock pages
 const animalRoutes = require('./routes/animal')
 
 const app = express();
@@ -17,14 +21,12 @@ app.set("views","views");
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/admin", adminData.routes);
+app.use("/admin", adminRoutes);
 app.use(shopRoutes);
 
 /* delete at some point */
 app.use('/animals', animalRoutes);
 /* delete at some point */
-app.use((req, res, next) => {
-    res.render('error', {docTitle: "Error and can't be found!"})
-})
+app.use(errorController.getErrorPage)
 
 app.listen(3000);
