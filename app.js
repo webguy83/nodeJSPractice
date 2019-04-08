@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
+const cartRoutes = require('./routes/cart');
+const displayProductsRoutes = require('./routes/displayProducts');
 
 //controllers
 const errorController = require('./controllers/error');
@@ -23,6 +25,10 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
+
+app.use(displayProductsRoutes);
+
+app.use(cartRoutes)
 
 /* delete at some point */
 app.use('/animals', animalRoutes);
