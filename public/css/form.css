@@ -6,18 +6,24 @@
 
 .form-control {
     font-size: 1.1rem;
-    margin: 1rem 0;
 }
 
 .form-control > label,
-.form-control > input {
-    display: block;
+.form-control > input,
+.form-control > textarea {
     width: 90%;
     color: var(--primary); 
 }
 
-.form-control > input {
+.form-control > input,
+.form-control > textarea {
     background-color: var(--secondary);
+    margin-bottom: 1rem;
+}
+
+.form-control > input:focus,
+.form-control > textarea:focus {
+    outline-color: var(--primary);
 }
 
 .form-control > input {

@@ -13,8 +13,11 @@ const getProductsFromPath = function(cb) {
     })
 }
 
-const Product = function(title) {
+const Product = function(title, imageURL, price, description) {
     this.title = title;
+    this.imageURL = imageURL;
+    this.price = price;
+    this.description = description;
 }
 
 Product.prototype.save = function() {
