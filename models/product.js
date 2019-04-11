@@ -14,6 +14,7 @@ const getProductsFromPath = function(cb) {
 }
 
 const Product = function(title, imageURL, price, description) {
+    this.id = Math.random().toString();
     this.title = title;
     this.imageURL = imageURL;
     this.price = price;
@@ -32,6 +33,15 @@ Product.prototype.save = function() {
 
 Product.fetchAllProducts = function(cb) {
     getProductsFromPath(cb);
+}
+
+Product.findById = function(id, cb) {
+    getProductsFromPath(products => {
+        const product = products.find(p => {
+            return p.id.toString() === id;
+        });
+        cb(product);
+    })
 }
 
 module.exports = Product;

@@ -11,6 +11,14 @@ exports.getProducts = (req, res, next) => {
     })
 }
 
+exports.getProduct = (req, res, next) => {
+    const prodID = req.params.prodID;
+    ProductModel.findById(prodID, product => {
+        console.log(product);
+    })
+    res.redirect('/');
+}
+
 exports.getAdminProducts = (req, res, next) => {
     res.render('admin/products', 
         {
