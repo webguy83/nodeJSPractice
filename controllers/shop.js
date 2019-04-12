@@ -1,9 +1,9 @@
 const ProductModel = require('../models/product');
+const CartModel = require('../models/cart');
 
 exports.getProducts = (req, res, next) => {
     ProductModel.fetchAllProducts((getProducts) => {
-        res.render("shop/product-item", 
-        { 
+        res.render("shop/product-item", { 
             prods: getProducts, 
             docTitle: "All Products", 
             path: "/products"
@@ -14,14 +14,16 @@ exports.getProducts = (req, res, next) => {
 exports.getProduct = (req, res, next) => {
     const prodID = req.params.prodID;
     ProductModel.findById(prodID, product => {
-        console.log(product);
+        res.render("shop/product-detail", {
+            product,
+            docTitle: product.title,
+            path: '/products'
+        })
     })
-    res.redirect('/');
 }
 
 exports.getAdminProducts = (req, res, next) => {
-    res.render('admin/products', 
-        {
+    res.render('admin/products', {
             docTitle: "Add Products", 
             path: "/admin/products"
         }
@@ -30,8 +32,7 @@ exports.getAdminProducts = (req, res, next) => {
 
 exports.getIndex = (req, res, next) => {
     ProductModel.fetchAllProducts((getProducts) => {
-        res.render("shop/index", 
-        { 
+        res.render("shop/index", { 
             prods: getProducts, 
             docTitle: "Shop", 
             path: "/"
@@ -40,8 +41,19 @@ exports.getIndex = (req, res, next) => {
 }
 
 exports.getCart = (req, res, next) => {
-    res.render('shop/cart', 
-        {
+    res.render('shop/cart', {
+            docTitle: "Cart", 
+            path: "/cart"
+        }
+    );
+}
+
+exports.postCart = (req, res, next) => {
+    const prodID = req.body.productId;
+    ProductModel.findById(prodID, (product) => {
+        CartModel.addProduct(prodID, product.price)
+    })
+    res.render('shop/cart', {
             docTitle: "Cart", 
             path: "/cart"
         }
@@ -49,8 +61,7 @@ exports.getCart = (req, res, next) => {
 }
 
 exports.getOrders = (req, res, next) => {
-    res.render('shop/orders', 
-        {
+    res.render('shop/orders', {
             docTitle: "Orders", 
             path: "/orders"
         }

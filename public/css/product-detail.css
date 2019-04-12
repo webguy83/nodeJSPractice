@@ -1,0 +1,32 @@
+.detail-container {
+    max-width: 30rem;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.detail-title {
+    font-size: 2.8rem;
+    text-transform: uppercase;
+}
+
+.detail-img > img {
+    width: 40%
+}
+
+.detail-price {
+    font-size: 2.2rem;
+    padding: .4rem 0;
+    color:var(--secondary);
+    background-color: var(--primary);
+    font-weight: bold;
+}
+
+.detail-description {
+    font-size: 1.1rem;
+    font-style: italic;
+    margin-top: 1rem;
+}
+
+.detail-form > .btn {
+    margin-top: 1rem;
+}
