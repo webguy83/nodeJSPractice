@@ -57,6 +57,19 @@ Product.findById = function (id, cb) {
     })
 }
 
+Product.deleteById = function (id) {
+    getProductsFromPath(products => {
+        const updatedProducts = products.filter(product => {
+            return product.id.toString() !== id;
+        });
+        fs.writeFile(newPath, JSON.stringify(updatedProducts), (err) => {
+            console.log(err);
+        })
+    })
+}
+
+
+
 module.exports = Product;
 
 
