@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
+const Cart = require('../models/cart');
+
 const newPath = path.join(path.dirname(process.mainModule.filename), 'data', 'products.json');
 
 const getProductsFromPath = function (cb) {
@@ -41,7 +43,6 @@ Product.prototype.save = function () {
             })
         }
     });
-    //products.push(this);
 }
 
 Product.fetchAllProducts = function (cb) {
@@ -59,10 +60,14 @@ Product.findById = function (id, cb) {
 
 Product.deleteById = function (id) {
     getProductsFromPath(products => {
+        const product = products.find(prod => prod.id === id);
         const updatedProducts = products.filter(product => {
             return product.id.toString() !== id;
         });
         fs.writeFile(newPath, JSON.stringify(updatedProducts), (err) => {
+            if(!err) {
+                Cart.deleteProduct(id, product.price);
+            }
             console.log(err);
         })
     })

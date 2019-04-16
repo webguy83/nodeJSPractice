@@ -18,6 +18,7 @@ Cart.addProduct = function(id, productPrice) {
 
         const existingProductFromJSONindex = cart.products.findIndex(product => product.id === id);
         const existingProductFromJSON = cart.products[existingProductFromJSONindex];
+
         let updatedProduct;
 
         if(existingProductFromJSON) {// if the JSON data file exists
@@ -34,6 +35,35 @@ Cart.addProduct = function(id, productPrice) {
             console.log(err);
         })
     })
+}
+
+Cart.deleteProduct = function(id, productPrice) {
+    fs.readFile(cartJSONPath, (err, fileContent) => {
+        if(err) {
+            return;
+        }
+        const updatedCart = {...JSON.parse(fileContent)};
+        const product = updatedCart.products.find(prod => prod.id === id);
+        if(!product) {
+            return;
+        }
+        updatedCart.products = updatedCart.products.filter(prod => prod.id !== id);
+        updatedCart.totalPrice = updatedCart.totalPrice - productPrice * product.qty;
+
+        fs.writeFile(cartJSONPath, JSON.stringify(updatedCart), (err) => {
+            console.log(err);
+        })
+    })
+}
+
+Cart.getCart = function(cb) {
+    fs.readFile(cartJSONPath, (err, fileContent) => {
+        if(err) {
+            cb(null);
+        } else {
+            cb(JSON.parse(fileContent));
+        }
+    });
 }
 
 module.exports = Cart;
