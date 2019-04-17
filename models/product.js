@@ -1,18 +1,8 @@
-const fs = require('fs');
-const path = require('path');
-
 const Cart = require('../models/cart');
-
-const newPath = path.join(path.dirname(process.mainModule.filename), 'data', 'products.json');
+const db = require("../utils/database");
 
 const getProductsFromPath = function (cb) {
-    fs.readFile(newPath, (err, fileContent) => {
-        if (err) {
-            cb([]);
-        } else {
-            cb(JSON.parse(fileContent));
-        }
-    })
+    
 }
 
 const Product = function (id, title, imageURL, price, description) {
@@ -24,56 +14,21 @@ const Product = function (id, title, imageURL, price, description) {
 }
 
 Product.prototype.save = function () {
-    getProductsFromPath((products) => {
-        if (this.id) { // we update product
-            const existingProductIndex = products.findIndex((product) => {
-                return product.id === this.id;
-            });
-            const updatedProducts = [...products];
-            updatedProducts[existingProductIndex] = this;
-
-            fs.writeFile(newPath, JSON.stringify(updatedProducts), (err) => {
-                console.log(err);
-            })
-        } else {
-            this.id = Math.random().toString();
-            products.push(this);
-            fs.writeFile(newPath, JSON.stringify(products), (err) => {
-                console.log(err);
-            })
-        }
-    });
+   return db.execute("INSERT INTO products (title, price, description, imageURL) VALUES (?, ?, ?, ?)",
+   [this.title, this.price, this.description, this.imageURL]);
 }
 
-Product.fetchAllProducts = function (cb) {
-    getProductsFromPath(cb);
+Product.fetchAllProducts = function () {
+    return db.execute("SELECT * FROM products");
 }
 
-Product.findById = function (id, cb) {
-    getProductsFromPath(products => {
-        const product = products.find(p => {
-            return p.id.toString() === id;
-        });
-        cb(product);
-    })
+Product.findById = function (id) {
+    return db.execute("SELECT * FROM products WHERE products.id = ?", [id]);
 }
 
 Product.deleteById = function (id) {
-    getProductsFromPath(products => {
-        const product = products.find(prod => prod.id === id);
-        const updatedProducts = products.filter(product => {
-            return product.id.toString() !== id;
-        });
-        fs.writeFile(newPath, JSON.stringify(updatedProducts), (err) => {
-            if(!err) {
-                Cart.deleteProduct(id, product.price);
-            }
-            console.log(err);
-        })
-    })
+    
 }
-
-
 
 module.exports = Product;
 
