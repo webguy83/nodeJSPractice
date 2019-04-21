@@ -8,7 +8,7 @@ const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 
 //db
-const db = require("./utils/database");
+const sequelize = require("./utils/database");
 
 //controllers
 const errorController = require('./controllers/error');
@@ -30,6 +30,14 @@ app.use(shopRoutes);
 /* delete at some point */
 app.use('/animals', animalRoutes);
 /* delete at some point */
-app.use(errorController.getErrorPage)
+app.use(errorController.getErrorPage);
 
-app.listen(3000);
+sequelize
+    .sync()
+    .then(result => {
+        //console.log(result);
+        app.listen(3000);
+    })
+    .catch(err => {
+        console.log(err);
+    });

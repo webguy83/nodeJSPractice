@@ -11,15 +11,21 @@ exports.getAddProduct = (req, res) => {
 }
 
 exports.postAddProduct = (req, res) => {
-    const {id, title, description, imageURL, price } = req.body;
-    const product = new ProductModel(null, title, imageURL, price, description);
-    product.save()
-    .then(() => {
-        res.redirect('/products');
+    const {title, description, imageURL, price } = req.body;
+    
+    ProductModel.create({
+        title,
+        price,
+        imageURL,
+        description
+    })
+    .then(result => {
+        console.log("Product created woohoo!");
     })
     .catch(err => {
-        console.log(err);
-    });
+        console.log(err)
+    })
+    
 }
 
 exports.postEditProduct = (req, res) => {
