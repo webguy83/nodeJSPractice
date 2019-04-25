@@ -36,3 +36,8 @@
     background-color: var(--secondary);
     font-weight: bold;
 }
+
+.cart__order-now {
+    text-align: center;
+    margin-top: 1rem;
+}
