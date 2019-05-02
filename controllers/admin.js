@@ -12,15 +12,12 @@ exports.getAddProduct = (req, res) => {
 
 exports.postAddProduct = (req, res) => {
     const { title, description, imageURL, price } = req.body;
+    const product = new ProductModel(title, price, description, imageURL, null, req.user._id)
 
-    req.user.createProduct({
-        title,
-        price,
-        imageURL,
-        description
-    })
+    product.save()
         .then(result => {
             console.log("Product created woohoo!");
+            res.redirect("/admin/products");
         })
         .catch(err => {
             console.log(err)
@@ -31,15 +28,11 @@ exports.postAddProduct = (req, res) => {
 exports.postEditProduct = (req, res) => {
     const { productId, title, imageURL, price, description } = req.body;
 
-    ProductModel.findByPk(productId)
-        .then(product => {
-            product.title = title;
-            product.price = price;
-            product.description = description;
-            product.imageURL = imageURL;
-            return product.save();
-        })
-        .then(() => {
+    const product = new ProductModel(title, price, description, imageURL, productId);
+    product
+        .save()
+        .then((result) => {
+            console.log("Updated Product!")
             res.redirect('/admin/products');
         })
         .catch(err => {
@@ -58,14 +51,8 @@ exports.getEditProduct = (req, res) => {
         res.redirect('/')
     }
     const prodID = req.params.productId;
-    req.user
-        .getProducts({
-            where: {
-                id: prodID
-            }
-        })
-        .then(products => {
-            const product = products[0];
+    ProductModel.findById(prodID)
+        .then(product => {
             if (!product) {
                 res.redirect('/');
             }
@@ -82,8 +69,7 @@ exports.getEditProduct = (req, res) => {
 }
 
 exports.getProducts = (req, res, next) => {
-    req.user
-        .getProducts()
+    ProductModel.fetchAllProducts()
         .then(products => {
             res.render("admin/products", {
                 prods: products,
