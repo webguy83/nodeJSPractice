@@ -1,0 +1,43 @@
+.orders {
+    padding-top: 0;
+}
+
+.orders__list, .order__details {
+    list-style-type: none;
+}
+
+.orders__header {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 2.2rem;
+    margin: 2rem 0;
+}
+
+.order {
+    padding: 1rem;
+    border: .1rem solid var(--primary);
+    margin-bottom: 1rem;
+    box-shadow: 7px 8px 9px -5px rgba(0,0,0,0.41);
+}
+
+.order__title {
+    margin-bottom: 1rem;
+}
+
+.order__detail {
+    background-color: var(--primary);
+    border: .1rem solid var(--secondary);
+    color: #fff;
+    font-size: 1.1rem;
+    padding: 1rem;
+}
+
+.order__detail:not(:last-child) {
+    margin-bottom: .5rem;
+}
+
+.order__total-price {
+    font-size: 2.5rem;
+    margin-bottom: 10rem;
+    text-align: center;
+}

@@ -1,4 +1,3 @@
-
 const ProductModel = require('../models/product');
 
 exports.getAddProduct = (req, res) => {
@@ -12,10 +11,10 @@ exports.getAddProduct = (req, res) => {
 
 exports.postAddProduct = (req, res) => {
     const { title, description, imageURL, price } = req.body;
-    const product = new ProductModel(title, price, description, imageURL, null, req.user._id)
+    const product = new ProductModel({title, price, description, imageURL, userId: req.user})
 
     product.save()
-        .then(result => {
+        .then(() => {
             console.log("Product created woohoo!");
             res.redirect("/admin/products");
         })
@@ -28,21 +27,28 @@ exports.postAddProduct = (req, res) => {
 exports.postEditProduct = (req, res) => {
     const { productId, title, imageURL, price, description } = req.body;
 
-    const product = new ProductModel(title, price, description, imageURL, productId);
-    product
-        .save()
-        .then((result) => {
-            console.log("Updated Product!")
-            res.redirect('/admin/products');
+    ProductModel.findById(productId)
+        .then(product => {
+            product.title = title;
+            product.price = price;
+            product.description = description;
+            product.imageURL = imageURL;
+            return product.save()
         })
-        .catch(err => {
-            console.log(err);
+        .then(() => {
+            console.log("Updated Product!");
+            res.redirect("/admin/products");
         })
+        .catch(err => console.log(err))
 }
 
 exports.postDeleteProduct = (req, res) => {
-    ProductModel.deleteById(req.body.productId);
-    res.redirect('/admin/products');
+    ProductModel.findByIdAndRemove(req.body.productId)
+        .then(() => {
+            console.log("Deleted Product!");
+            res.redirect('/admin/products');
+        })
+        .catch(err => console.log(err));
 }
 
 exports.getEditProduct = (req, res) => {
@@ -69,7 +75,7 @@ exports.getEditProduct = (req, res) => {
 }
 
 exports.getProducts = (req, res, next) => {
-    ProductModel.fetchAllProducts()
+    ProductModel.find()
         .then(products => {
             res.render("admin/products", {
                 prods: products,

@@ -6,12 +6,13 @@
 
 body {
     font-size: 62.5%;
-    font-family: sans-serif;
+    font-family: 'Ubuntu', sans-serif;
+    line-height: 1.7;
 }
 
 :root {
-    --primary: darkgreen;
-    --secondary: lightpink;
+    --primary: rgb(65, 53, 236);
+    --secondary: rgba(164, 255, 243, 0.815);
 }
 
 .main-header {
@@ -75,4 +76,20 @@ main {
 
 .errorMsg {
     font-size: 1.4rem;
+}
+
+.footer {
+    background-color: var(--primary);
+    color: #fff;
+    height: 3rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    position: fixed;
+    bottom: 0rem;
+    width: 100%;
+}
+
+.copy {
+    margin: 0 .6rem .2rem;
 }
