@@ -21,24 +21,9 @@ const userSchema = new Schema({
                 type: Number,
                 required: true
             }
-        }],
-        totalPrice: {
-            type: Number,
-            //required: true
-        }
+        }]
     }
 })
-
-const getTotalPrice = function(products) {
-    console.log(products)
-    let price = 0;
-    products.forEach(product => {
-        const q = product.qty;
-        const p = product.productId.price;
-        price += p * q;
-    });
-    return price;
-}
 
 userSchema.methods.addToCart = function (product) {
     const cartProductIndex = this.cart.items.findIndex(cp => {
@@ -58,10 +43,8 @@ userSchema.methods.addToCart = function (product) {
             qty: newQty
         })
     }
-    //console.log(getTotalPrice(updatedCartItems))
     const updatedCart = {
         items: updatedCartItems
-        //totalPrice: getTotalPrice(updatedCartItems)
     }
     this.cart = updatedCart;
     return this.save();
@@ -81,7 +64,5 @@ userSchema.methods.clearCart = function () {
     }
     return this.save();
 }
-
-
 
 module.exports = mongoose.model("User", userSchema);

@@ -12,6 +12,10 @@ const orderSchema = new Schema({
             required: true
         }
     }],
+    orderTotalPrice: {
+        type: Number,
+        required: true
+    },
     user: {
         name: {
             type: String,
