@@ -31,8 +31,8 @@ body {
 .main-header__listItems {
     width: 100%;
     list-style: none;
-
     display: flex;
+    justify-content: space-between;
 }
 
 .main-header__item {
@@ -46,8 +46,18 @@ body {
 
 .main-header__item>a:active,
 .main-header__item>a:hover,
-.main-header__item>a.active {
+.main-header__item button:active,
+.main-header__item button:hover {
     color: var(--secondary);
+}
+
+.main-header__item button {
+    text-decoration: none;
+    color: white;
+    font: inherit;
+    background: transparent;
+    border: none;
+    cursor: pointer;
 }
 
 main {

@@ -1,5 +1,7 @@
 .orders {
     padding-top: 0;
+    max-width: 50%;
+    margin: 0 auto;
 }
 
 .orders__list, .order__details {

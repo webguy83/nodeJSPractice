@@ -6,7 +6,8 @@ exports.getProducts = (req, res, next) => {
         res.render("shop/product-item", {
             prods: products,
             docTitle: "All Products",
-            path: "/products"
+            path: "/products",
+            isAuth: req.session.isLoggedIn
         });
     }).catch(err => {
         console.log(err);
@@ -20,7 +21,8 @@ exports.getProduct = (req, res, next) => {
             res.render("shop/product-detail", {
                 product: product,
                 docTitle: product.title,
-                path: '/products'
+                path: '/products',
+                isAuth: req.session.isLoggedIn
             })
         })
         .catch(err => {
@@ -31,7 +33,8 @@ exports.getProduct = (req, res, next) => {
 exports.getAdminProducts = (req, res, next) => {
     res.render('admin/products', {
         docTitle: "Add Products",
-        path: "/admin/products"
+        path: "/admin/products",
+        isAuth: req.session.isLoggedIn
     }
     );
 }
@@ -41,7 +44,8 @@ exports.getIndex = (req, res, next) => {
         res.render("shop/index", {
             prods: products,
             docTitle: "Shop",
-            path: "/"
+            path: "/",
+            isAuth: req.session.isLoggedIn
         });
     }).catch(err => {
         console.log(err);
@@ -64,7 +68,8 @@ exports.getCart = (req, res, next) => {
                 docTitle: "Cart",
                 path: "/cart",
                 products,
-                totalPrice
+                totalPrice,
+                isAuth: req.session.isLoggedIn
             });
         })
         .catch(err => console.log(err))
@@ -136,7 +141,8 @@ exports.getOrders = (req, res, next) => {
             docTitle: "Orders",
             path: "/orders",
             orders,
-            ordersTotal
+            ordersTotal,
+            isAuth: req.session.isLoggedIn
         });
     })
     .catch(err => console.log(err));
@@ -147,7 +153,8 @@ exports.getCheckout = (req, res, next) => {
     res.render('shop/checkout',
         {
             docTitle: "Checkout",
-            path: "/checkout"
+            path: "/checkout",
+            isAuth: req.session.isLoggedIn
         }
     );
 }
