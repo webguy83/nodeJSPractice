@@ -84,8 +84,21 @@ main {
     border: 1px solid var(--primary);
 }
 
+
+
+.userMsg {
+    text-align: center;
+    color: blue;
+    background-color: lightblue;
+}
+
 .errorMsg {
     font-size: 1.4rem;
+    color: red;
+    background-color: #ffdada;
+    max-width: 30rem;
+    margin: 0 auto;
+    border-radius: .5rem;
 }
 
 .footer {

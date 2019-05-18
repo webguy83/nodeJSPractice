@@ -5,11 +5,12 @@
 
 <body>
     <%- include('../includes/nav.ejs') %>
+    
     <main>
-        <% if (errorMsg) { %>
-        <p class="errorMsg userMsg"><%= errorMsg %></p>
-        <% } %>
-        <form class="product-form" action='/login' method='POST'>
+            <% if (errorMsg) { %>
+                <p class="errorMsg userMsg"><%= errorMsg %></p>
+                <% } %>
+        <form class="product-form" action='/signup' method='POST'>
             <div class="form-control">
                 <label for="title">Email: </label>
                 <input type='email' name='email' id="email"/>
@@ -18,9 +19,13 @@
                 <label for="password">Password: </label>
                 <input type='password' name='password' id="password"/>
             </div>
+            <div class="form-control">
+                <label for="confirmPassword">Confirm Password: </label>
+                <input type='password' name='confirmPassword' id="confirmPassword"/>
+            </div>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+            <button class="btn" type="submit">Signup</button>
             
-            <button class="btn" type="submit">Login</button>
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         </form>
     </main>
 <%- include('../includes/end.ejs') %>

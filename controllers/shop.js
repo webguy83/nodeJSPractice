@@ -6,8 +6,7 @@ exports.getProducts = (req, res, next) => {
         res.render("shop/product-item", {
             prods: products,
             docTitle: "All Products",
-            path: "/products",
-            isAuth: req.session.isLoggedIn
+            path: "/products"
         });
     }).catch(err => {
         console.log(err);
@@ -21,8 +20,7 @@ exports.getProduct = (req, res, next) => {
             res.render("shop/product-detail", {
                 product: product,
                 docTitle: product.title,
-                path: '/products',
-                isAuth: req.session.isLoggedIn
+                path: '/products'
             })
         })
         .catch(err => {
@@ -33,8 +31,7 @@ exports.getProduct = (req, res, next) => {
 exports.getAdminProducts = (req, res, next) => {
     res.render('admin/products', {
         docTitle: "Add Products",
-        path: "/admin/products",
-        isAuth: req.session.isLoggedIn
+        path: "/admin/products"
     }
     );
 }
@@ -44,8 +41,7 @@ exports.getIndex = (req, res, next) => {
         res.render("shop/index", {
             prods: products,
             docTitle: "Shop",
-            path: "/",
-            isAuth: req.session.isLoggedIn
+            path: "/"
         });
     }).catch(err => {
         console.log(err);
@@ -68,8 +64,7 @@ exports.getCart = (req, res, next) => {
                 docTitle: "Cart",
                 path: "/cart",
                 products,
-                totalPrice,
-                isAuth: req.session.isLoggedIn
+                totalPrice
             });
         })
         .catch(err => console.log(err))
@@ -111,7 +106,7 @@ exports.postOrder = (req, res, next) => {
             });
             const order = new OrderModel({
                 user: {
-                    name: req.user.name,
+                    email: req.user.email,
                     userId: req.user
                 },
                 items,
@@ -141,8 +136,7 @@ exports.getOrders = (req, res, next) => {
             docTitle: "Orders",
             path: "/orders",
             orders,
-            ordersTotal,
-            isAuth: req.session.isLoggedIn
+            ordersTotal
         });
     })
     .catch(err => console.log(err));
@@ -153,8 +147,7 @@ exports.getCheckout = (req, res, next) => {
     res.render('shop/checkout',
         {
             docTitle: "Checkout",
-            path: "/checkout",
-            isAuth: req.session.isLoggedIn
+            path: "/checkout"
         }
     );
 }
