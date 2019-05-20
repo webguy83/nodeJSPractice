@@ -1,6 +1,15 @@
 const User = require("../models/user");
 const bcrypt = require('bcrypt');
 
+const nodemailer = require('nodemailer');
+const sendgridTrans = require('nodemailer-sendgrid-transport');
+
+const transporter = nodemailer.createTransport(sendgridTrans({
+    auth: {
+        api_user: "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"
+    }
+}));
+
 exports.getLogin = function (req, res, next) {
 
     res.render('auth/login', {
@@ -82,8 +91,13 @@ exports.postSignup = function (req, res, next) {
                 return user.save();
             })
             .then(() => {
-                req.flash('error', "Wrong username and/or password!");
-                res.redirect('/login')
+                res.redirect('/login');
+                return transporter.sendMail({
+                    to: email,
+                    from: "fuckenstore@dunce.com",
+                    subject: "Signup is done! Enjoy your email.",
+                    html: "<h1>Eat rocks and enjoy your sign up!</h1>"
+                });
             })
     })
     .catch(err => console.log(err))
