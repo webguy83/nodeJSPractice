@@ -31,3 +31,9 @@
     border-radius: .2rem;
     border: 1px solid var(--primary);
 }
+
+.resetLink {
+    text-align: center;
+    display: block;
+    font-size: 1.3rem;
+}
